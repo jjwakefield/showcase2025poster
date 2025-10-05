@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showcase Poster 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* A0 paper size: 84.098cm x 118.899cm */
+            /* We simulate the aspect ratio for screen viewing */
+            width: 100%;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+
+        /* QR image sizing: explicit sizes avoid being rounded up by utility classes.
+           - on-screen we use an exact px size (tweak if you prefer)
+           - on print we use a physical mm size for predictable printed dimensions */
+        .qr-img {
+            width: 156px;
+            height: 156px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        @media print {
+            .qr-img {
+                width: 110mm !important;
+                height: 110mm !important;
+            }
+        }
+
+        .poster-container {
+            max-width: 1200px; /* This controls the display size on screen */
+            width: 100%;
+            aspect-ratio: 84.098 / 118.899; /* A0 aspect ratio */
+            margin: 2rem auto;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: visible; /* allow full content to be present for print sizing */
+        }
+
+        /* ensure a consistent browser base for screen */
+        :root {
+            /* base font size for screen (keep 16px for normal viewing) */
+            --base-font-size: 16px;
+            --text-scale: 1; /* change this to scale on-screen if needed */
+            font-size: calc(var(--base-font-size) * var(--text-scale));
+        }
+ 
+        /* --- Print / PDF rules --- */
+        /* use explicit mm dimensions to avoid browser differences */
+         @page { size: 841mm 1189mm; margin: 0; }
+ 
+         @media print {
+            /* scale all rem-based text for print (adjust multiplier as needed) */
+            :root { --text-scale: 2.5; } /* 16px * 2.5 = 40px root -> scales rem sizes */
+
+            /* Ensure the physical page uses a white background (paper) and no outer surround */
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0 !important; /* override body utility classes like p-4 */
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                background: #ffffff !important; /* force white paper edge */
+            }
+
+            /* Make the poster container fill the PDF page exactly.
+               Use explicit A0 mm dimensions so the poster covers the full page.
+               Remove visible borders and shadows for print. */
+            .poster-container {
+                width: 841mm !important;
+                height: 1189mm !important;
+                 max-width: none;
+                 max-height: none;
+                 aspect-ratio: auto;
+                 margin: 0;
+                 box-shadow: none !important;
+                 page-break-inside: avoid;
+                 transform: none;
+                 border: none !important; /* remove any border that shows a surround */
+                background: #ffffff !important; /* ensure poster itself is white when printed */
+             }
+
+             /* Remove shadows from common elements and Tailwind shadow utilities
+                so the printed poster doesn't include ink-heavy drop shadows.
+                Rounded corners are intentionally preserved. */
+             header, footer, section, img, figure,
+             .shadow, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl {
+                 box-shadow: none !important;
+                 -webkit-box-shadow: none !important;
+             }
+
+             img, figure { page-break-inside: avoid; }
+         }
+    </style>
+</head>
+<body class="bg-slate-100 p-4 sm:p-8">
+
+    <!-- Poster Container -->
+    <div class="poster-container bg-white rounded-lg p-6 sm:p-10 flex flex-col">
+        
+        <!-- Header Section -->
+    <header class="px-12 py-6 bg-[#242F61] text-white rounded-lg mb-4">
+            <div class="flex items-center justify-center space-x-6">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">Simulating Realistic Ocean Soundscapes</h1>
+                <img src="./assets/cdt.svg" alt="CDT logo" class="h-32 w-auto">
+            </div>
+        </header>
+
+        <!-- Authors Section -->
+        <div class="text-center mb-6">
+             <div class="flex justify-center items-baseline space-x-8 text-lg md:text-xl text-slate-900">
+                <span class="font-bold">Joshua J. Wakefield<sup class="text-[#242F61] font-semibold">1</sup></span>
+                <span class="font-normal">Stewart G. Haslinger<sup class="text-[#242F61] font-semibold">1</sup></span>
+                <span class="font-normal">Jason F. Ralph<sup class="text-[#242F61] font-semibold">1</sup></span>
+                <span class="font-normal">Ed Rimmer<sup class="text-[#242F61] font-semibold">2</sup></span>
+            </div>
+            <p class="text-md md:text-lg space-x-8 text-slate-600 mt-2">
+                <sup class="text-[#242F61]">1</sup>{sgjwakef, sgh, jfralph}@liverpool.ac.uk
+                <sup class="text-[#242F61]">2</sup>ed.rimmer@uk.thalesgroup.com
+            </p>
+        </div>
+
+        <!-- Main Content Grid -->
+        <main class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 flex-grow">
+
+            <!-- Column 1: Introduction & Noise Sources -->
+            <div class="lg:col-span-1 md:col-span-1 space-y-8">
+                <!-- Introduction Section -->
+                <section class="bg-slate-50 p-6 rounded-lg border border-slate-200">
+                    <h2 class="text-2xl font-bold text-[#242F61] border-b-2 border-[#D2D6E8] pb-2 mb-4 flex items-center">
+                        <img src="./assets/icon-introduction.svg" alt="Introduction" class="h-6 w-6 mr-3">
+                        Introduction
+                    </h2>
+
+                    <!-- Lead + visual accent -->
+                    <div class="flex items-start">
+                        <div>
+                            <p class="text-sm md:text-base font-semibold text-slate-800 mb-2">
+                                High-fidelity soundscape simulations that recreate real-world variability to benchmark detectors and trackers.
+                            </p>
+
+                            <ul class="list-disc list-outside pl-4 text-slate-700 space-y-1 text-xs md:text-sm">
+                                <li>Recreate real-world variability.</li>
+                                <li>Produce realistic test datasets for detectors and trackers.</li>
+                                <li>Validate tracking and inform sensor deployment.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Noise Sources Section -->
+                <section class="bg-slate-50 p-6 rounded-lg border border-slate-200">
+                    <h2 class="text-2xl font-bold text-[#242F61] border-b-2 border-[#D2D6E8] pb-2 mb-4 flex items-center whitespace-nowrap">
+                        <img src="./assets/icon-sources.svg" alt="Noise Sources" class="h-6 w-6 mr-3">
+                        Noise Sources
+                    </h2>
+                    <p class="text-slate-700 leading-relaxed">
+                        Biological, anthropogenic and geophysical sources dominate ocean noise.
+                    </p>
+                    <div class="mt-4 space-y-3">
+                        <div>
+                            <h3 class="font-semibold text-slate-800">1. Biological</h3>
+                            <p class="text-sm text-slate-600">Marine life, such as the cacophony of snapping shrimp or the songs of whales and dolphins.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-slate-800">2. Anthropogenic</h3>
+                            <p class="text-sm text-slate-600">Human activities, dominated by commercial shipping, but also including sonar, and construction.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-slate-800">3. Geophysical</h3>
+                            <p class="text-sm text-slate-600">Natural physical processes, including noise from wind-driven waves, rain, earthquakes, and other geological activity.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="mt-4">
+                    <img src="./assets/smug_shrimp.png" alt="Smug shrimp" class="w-full rounded-md border object-contain">
+                </div>
+
+            </div>
+
+            <!-- Column 2 & 3: Case Study -->
+            <div class="lg:col-span-2 md:col-span-2 space-y-8">
+                <!-- Results Section -->
+                <section class="bg-white p-6 rounded-lg border-2 border-[#242F61] shadow-lg">
+                    <h2 class="text-3xl font-bold text-[#242F61] border-b-2 border-[#D2D6E8] pb-2 mb-6 text-center">
+                        Case Study: Snapping Shrimp
+                    </h2>
+                    <div class="text-center grid grid-cols-3 gap-4 mb-6">
+                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                                     <h3 class="font-bold text-blue-700 flex items-center justify-center">
+                                         <img src="./assets/icon-bursty.svg" alt="Bursty" class="h-5 w-5 mr-2">
+                                          Bursty
+                                     </h3>
+                            <p class="text-xs text-blue-600">Snaps occur in non-independent clusters.</p>
+                        </div>
+                        <div class="bg-teal-50 p-3 rounded-lg border border-teal-200">
+                            <h3 class="font-bold text-teal-700 flex items-center justify-center">
+                                                                <img src="./assets/icon-heavy-tailed.svg" alt="Heavy-Tailed" class="h-5 w-5 mr-2">
+                                                                Heavy-Tailed
+                            </h3>
+                            <p class="text-xs text-teal-600">Extreme events are more likely than in a Gaussian model.</p>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded-lg border border-red-200">
+                             <h3 class="font-bold text-red-700 flex items-center justify-center">
+                                <img src="./assets/icon-impulsive.svg" alt="Impulsive" class="h-5 w-5 mr-2">
+                                Impulsive
+                            </h3>
+                            <p class="text-xs text-red-600">Frequent, high-amplitude clicks.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Step 1 -->
+                        <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                            <h4 class="font-bold text-lg text-blue-600">1. Snap Timing (When?)</h4>
+                            <p class="text-sm text-slate-600 mt-1">
+                                A <strong>Non-Homogeneous Poisson Process (NHPP)</strong> models snap times and burstiness. The snap rate is modulated by water temperature, and rhythmic daily and tidal cycles.
+                            </p>
+                            <figure class="w-3/4 mx-auto mt-2">
+                                <img src="./assets/snap_rate.svg" alt="Snap rate variation over 48 hours" class="w-full">
+                                <figcaption class="text-center text-xs text-slate-600 mt-1">Figure 1. Snap rate variation over 48 hours.</figcaption>
+                            </figure>
+                        </div>
+
+                        <!-- Step 2 -->
+                         <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                            <h4 class="font-bold text-lg text-teal-600">2. Snap Waveform (What?)</h4>
+                            <p class="text-sm text-slate-600 mt-1">Each ~2ms snap is built using a <strong>Composite Waveform</strong>, representing the acoustic signature of a collapsing cavitation bubble. This captures the sharp, broadband nature of the sound.</p>
+                            <figure class="w-3/4 mx-auto mt-2">
+                                <img src="./assets/snap_waveform.svg" alt="Modelled snap waveform" class="w-full">
+                                <figcaption class="text-center text-xs text-slate-600 mt-1">Figure 2. Modelled snap waveform (~2 ms).</figcaption>
+                            </figure>
+                        </div>
+                        
+                        <!-- Step 3 -->
+                         <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                            <h4 class="font-bold text-lg text-red-600">3. Snap Amplitude (How Loud?)</h4>
+                            <p class="text-sm text-slate-600 mt-1">Loudness is modelled with a heavy-tailed <strong>Symmetric Alpha-Stable (SαS)</strong> distribution. This correctly predicts the probability of the extremely loud snaps that characterise this type of noise.</p>
+                            <figure class="w-3/4 mx-auto mt-2">
+                                <img src="./assets/snap_amplitude.svg" alt="Amplitude distribution comparison" class="w-full">
+                                <figcaption class="text-center text-xs text-slate-600 mt-1">Figure 3. Amplitude distribution: SαS vs Gaussian.</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Column 4: Detection & Tracking -->
+            <div class="lg:col-span-1 md:col-span-3 space-y-8">
+                <!-- Detection & Tracking Section -->
+                <section class="bg-slate-50 p-6 rounded-lg border border-slate-200">
+                    <h2 class="text-2xl font-bold text-[#242F61] border-b-2 border-[#D2D6E8] pb-2 mb-4 flex items-center">
+                        <img src="./assets/icon-track.svg" alt="Tracking & Detection" class="h-6 w-6 mr-3">
+                        Detection & Tracking
+                    </h2>
+                    <p class="text-slate-700 leading-relaxed">
+                        Use simulations to measure detector and tracker performance across realistic, variable noise conditions.
+                    </p>
+                    <div class="mt-4 space-y-3">
+                        <div>
+                            <h3 class="font-semibold text-slate-800">Detection</h3>
+                            <p class="text-sm text-slate-600">Measure probability of detection and false alarm rate as functions of SNR.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-slate-800">Tracking</h3>
+                            <p class="text-sm text-slate-600">Evaluate localisation error, ID switches, track fragmentation and continuity under variable noise and source density.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-slate-800">Operational impacts</h3>
+                            <p class="text-sm text-slate-600">Distant shipping reduces SNR and detection range; snapping shrimp produce clustered false positives; wind and wave noise increase background noise.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Key Takeaways -->
+                <section class="bg-[#242F61] text-white p-6 rounded-lg">
+                    <h2 class="text-2xl font-bold border-b-2 border-[#A0A8C9] pb-2 mb-4 flex items-center whitespace-nowrap">
+                        <img src="./assets/icon-conclusion.svg" alt="Takeaways" class="h-6 w-6 mr-3">
+                        Key Points
+                    </h2>
+                    <ul class="list-disc list-outside pl-4 space-y-1 text-xs md:text-sm">
+                        <li><strong>Realism:</strong> Models reproduce empirical statistics, specific to each source type.</li>
+                        <li><strong>Benchmarking:</strong> Generate labelled datasets to measure detection and tracking metrics.</li>
+                        <li><strong>Impact:</strong> Stress-test algorithms; guide sensor placement and processing.</li>
+                    </ul>
+                </section>
+                
+                <!-- QR Code Section -->
+                <section class="bg-slate-50 p-6 rounded-lg border border-slate-200 text-center">
+                    <h2 class="text-xl font-bold text-[#242F61] mb-2 flex items-center justify-center">
+                        <img src="./assets/icon-info.svg" alt="Info" class="h-6 w-6 mr-2">
+                        More Info
+                    </h2>
+                    <div class="text-slate-700">
+                        <p class="text-sm mt-1 text-slate-500" style="max-width:16rem; display:inline-block;">Scan for audio samples, references & extra materials</p>
+                    </div>
+
+                    <div class="flex items-center justify-center mt-2">
+                        <img src="./assets/qrcode.svg" alt="QR - references and supplementary materials" class="qr-img">
+                     </div>
+
+                    <div class="text-center mt-1">
+                        <p class="text-xs text-slate-500 break-words">https://jjwakefield.github.io/snapping-shrimp/snapping_shrimp.html</p>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+
+        <!-- Footer with Logos -->
+        <footer class="mt-3 border-t-2 border-slate-200 py-4 flex items-center justify-center">
+            <div class="flex items-center justify-center space-x-24">
+                <!-- Logo 1 -->
+                <div class="h-24 w-64 flex justify-center items-center">
+                    <img src="./assets/uni.svg" alt="University Logo" class="max-h-full max-w-full object-contain">
+                </div>
+                <!-- Logo 2 -->
+                <div class="h-24 w-64 flex justify-center items-center">
+                    <img src="./assets/epsrc.svg" alt="EPSRC Logo" class="max-h-full max-w-full object-contain">
+                </div>
+                <!-- Logo 3 -->
+                <div class="h-24 w-64 flex justify-center items-center">
+                    <img src="./assets/thales.svg" alt="Thales Logo" class="max-h-full max-w-full object-contain">
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>

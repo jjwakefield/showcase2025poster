@@ -1,5 +1,24 @@
 {
   "devDependencies": {
     "puppeteer": "^24.23.0"
-  }
+  },
+  "name": "showcase2025poster",
+  "version": "1.0.0",
+  "description": "",
+  "main": "print-a0.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jjwakefield/showcase2025poster.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jjwakefield/showcase2025poster/issues"
+  },
+  "homepage": "https://github.com/jjwakefield/showcase2025poster#readme"
 }

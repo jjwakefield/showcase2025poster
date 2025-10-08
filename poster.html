@@ -12,14 +12,14 @@
         body {
             font-family: 'Inter', sans-serif;
             /* A0 paper size: 84.098cm x 118.899cm */
-            /* We simulate the aspect ratio for screen viewing */
+            /* Simulate the aspect ratio for screen viewing */
             width: 100%;
             background-color: #f0f4f8; /* Light blue-gray background */
         }
 
         /* QR image sizing: explicit sizes avoid being rounded up by utility classes.
-           - on-screen we use an exact px size (tweak if you prefer)
-           - on print we use a physical mm size for predictable printed dimensions */
+           - on-screen use an exact px size
+           - on print use a physical mm size for predictable printed dimensions */
         .qr-img {
             width: 156px;
             height: 156px;
@@ -35,7 +35,7 @@
         }
 
         .poster-container {
-            max-width: 1200px; /* This controls the display size on screen */
+            max-width: 1200px; /* controls the display size on screen */
             width: 100%;
             aspect-ratio: 84.098 / 118.899; /* A0 aspect ratio */
             margin: 2rem auto;
@@ -46,9 +46,9 @@
 
         /* ensure a consistent browser base for screen */
         :root {
-            /* base font size for screen (keep 16px for normal viewing) */
+            /* base font size for screen */
             --base-font-size: 16px;
-            --text-scale: 1; /* change this to scale on-screen if needed */
+            --text-scale: 1;
             font-size: calc(var(--base-font-size) * var(--text-scale));
         }
  
@@ -57,7 +57,7 @@
          @page { size: 841mm 1189mm; margin: 0; }
  
          @media print {
-            /* scale all rem-based text for print (adjust multiplier as needed) */
+            /* scale all rem-based text for print */
             :root { --text-scale: 2.5; } /* 16px * 2.5 = 40px root -> scales rem sizes */
 
             /* Ensure the physical page uses a white background (paper) and no outer surround */
@@ -89,7 +89,7 @@
 
              /* Remove shadows from common elements and Tailwind shadow utilities
                 so the printed poster doesn't include ink-heavy drop shadows.
-                Rounded corners are intentionally preserved. */
+                Rounded corners are preserved. */
              header, footer, section, img, figure,
              .shadow, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl {
                  box-shadow: none !important;

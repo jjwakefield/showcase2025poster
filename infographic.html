@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: Modeling Snapping Shrimp Noise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Slab:wght@700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f9ff; color: #1f2937; }
+        .title-font { font-family: 'Roboto Slab', serif; }
+        .container { max-width: 1080px; }
+        p { text-wrap: balance; }
+        
+        /* D3 Chart Styles */
+        .timeseries-chart .axis path,
+        .timeseries-chart .axis line {
+            fill: none;
+            stroke: #d1d5db; /* Lighter axis lines */
+            shape-rendering: crispEdges;
+        }
+        .timeseries-chart .axis text {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            fill: #4b5563;
+        }
+        .timeseries-chart .line-base { fill: none; stroke: #a5b4fc; stroke-width: 1.5px; }
+        .timeseries-chart .line-progress { fill: none; stroke: #4f46e5; stroke-width: 2px; }
+        .timeseries-chart .interaction-layer { cursor: pointer; }
+
+        /* Custom Audio Player */
+        .custom-player-button {
+            background-color: #4f46e5;
+            color: white;
+            border-radius: 9999px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .custom-player-button:hover { background-color: #4338ca; }
+        .custom-player-button:disabled { background-color: #a5b4fc; cursor: not-allowed; }
+        .custom-player-button svg { fill: currentColor; }
+
+        /* Small adjustments for phones */
+        @media (max-width: 640px) {
+            body { font-size: 15px; }
+            h1.title-font { font-size: 1.75rem; }
+            h2.title-font { font-size: 1.5rem; }
+            .container { padding-left: 1rem; padding-right: 1rem; }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <div class="container mx-auto p-4 sm:p-8">
+        <header class="text-center mb-12">
+            <div
+              class="inline-block rounded-full px-4 py-1 text-sm font-semibold mb-4
+                     bg-sky-100 text-sky-800"
+            >
+                CDT Showcase 2025
+            </div>
+            <h1 class="title-font text-4xl md:text-5xl font-bold text-gray-800">
+                Simulating Realistic Ocean Soundscapes
+            </h1>
+        </header>
+
+        <!-- Snapping Shrimp Section -->
+        <section class="mt-16 text-center">
+             <h2 class="title-font text-3xl font-semibold text-center mb-8 text-slate-700">
+                Snapping Shrimp
+            </h2>
+            <!-- Figure Container: Relative positioning context -->
+            <div class="bg-white rounded-xl shadow-2xl border relative overflow-hidden">
+                <!-- D3 chart is rendered here -->
+                <div id="timeseries-chart-shrimp" class="timeseries-chart"></div>
+                
+                <!-- Figure Caption -->
+                <div class="text-sm px-6 pt-4 pb-[100px] sm:pb-[80px] text-left">
+                    <ul class="space-y-1.5 text-gray-700">
+                        <li><span class="font-semibold text-gray-800">Avg. Snap Rate:</span> ~45 snaps/s (at 25°C, 18:00)</li>
+                        <li><span class="font-semibold text-gray-800">Amplitude Model:</span> SαS Distribution (α=1.5)</li>
+                        <li><span class="font-semibold text-gray-800">Source Level:</span> 190 dB re 1µPa @ 1m</li>
+                    </ul>
+                    <p class="mt-4 text-xs text-gray-600">
+                        <span class="font-semibold text-gray-700">Note:</span> This audio represents the source signal itself, without the effects of environmental propagation or sensor processing.
+                    </p>
+                </div>
+
+                <!-- Overlaid Audio Player -->
+                <div class="absolute bottom-0 left-0 right-0 p-3 bg-white/80 backdrop-blur-sm border-t border-gray-200 flex items-center space-x-4">
+                    <button id="play-pause-btn-shrimp" class="custom-player-button flex-shrink-0" aria-label="Play or pause audio">
+                        <!-- Play Icon -->
+                        <svg class="w-6 h-6" id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                        <!-- Pause Icon (hidden by default) -->
+                        <svg class="w-6 h-6 hidden" id="pause-icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
+                    </button>
+                    <div class="text-left">
+                        <p class="font-semibold text-gray-800 text-sm">Listen here</p>
+                        <p class="text-xs text-gray-600" id="time-display-shrimp">0:00 / 0:00</p>
+                    </div>
+                    <audio id="audio-player-shrimp" class="hidden">
+                        <source src="./assets/shrimp_waveform.wav" type="audio/wav">
+                        <source src="./assets/shrimp_waveform.ogg" type="audio/ogg">
+                        Your browser does not support the audio element.
+                    </audio>
+               </div>
+            </div>
+        </section>
+
+        <!-- Whale Vocalisations Section -->
+        <section class="mt-16 text-center">
+             <h2 class="title-font text-3xl font-semibold text-center mb-8 text-slate-700">
+                Whale Vocalisations
+            </h2>
+            <!-- Figure Container: Relative positioning context -->
+            <div class="bg-white rounded-xl shadow-2xl border relative overflow-hidden">
+                <!-- D3 chart is rendered here -->
+                <div id="timeseries-chart-whale" class="timeseries-chart"></div>
+                <!-- Figure Caption -->
+                    <p class="text-sm text-gray-600 italic px-6 pt-4 pb-[60px] text-left">
+                    Placeholder for whale vocalisation timeseries.
+                </p>
+                <!-- Overlaid Placeholder -->
+                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gray-100/80 backdrop-blur-sm border-t border-gray-200">
+                    <p class="text-gray-600 text-xs sm:text-sm text-center font-medium">
+                       Audio sample
+                   </p>
+               </div>
+            </div>
+        </section>
+
+        <!-- Merchant Vessel Section -->
+        <section class="mt-16 text-center">
+             <h2 class="title-font text-3xl font-semibold text-center mb-8 text-slate-700">
+                Merchant Vessel
+            </h2>
+            <!-- Figure Container: Relative positioning context -->
+            <div class="bg-white rounded-xl shadow-2xl border relative overflow-hidden">
+                <!-- D3 chart is rendered here -->
+                <div id="timeseries-chart-merchant" class="timeseries-chart"></div>
+                <!-- Figure Caption -->
+                <p class="text-sm text-gray-600 italic px-6 pt-4 pb-[60px] text-left">
+                    Placeholder for merchant vessel timeseries.
+                </p>
+                <!-- Overlaid Placeholder -->
+                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gray-100/80 backdrop-blur-sm border-t border-gray-200">
+                    <p class="text-gray-600 text-xs sm:text-sm text-center font-medium">
+                       Audio sample
+                   </p>
+               </div>
+            </div>
+        </section>
+
+        <!-- Soundscape Section -->
+        <section class="mt-16 text-center">
+             <h2 class="title-font text-3xl font-semibold text-center mb-8 text-slate-700">
+                Soundscape
+            </h2>
+            <!-- Figure Container: Relative positioning context -->
+            <div class="bg-white rounded-xl shadow-2xl border relative overflow-hidden">
+                <!-- D3 chart is rendered here -->
+                <div id="timeseries-chart-soundscape" class="timeseries-chart"></div>
+                <!-- Figure Caption -->
+                <p class="text-sm text-gray-600 italic px-6 pt-4 pb-[60px] text-left">
+                    Placeholder for soundscape timeseries.
+                </p>
+                <!-- Overlaid Placeholder -->
+                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gray-100/80 backdrop-blur-sm border-t border-gray-200">
+                    <p class="text-gray-600 text-xs sm:text-sm text-center font-medium">
+                       Audio sample
+                   </p>
+               </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="mt-16 border-t pt-8 mb-16">
+        <h2 class="title-font text-2xl font-semibold text-center mb-8 text-slate-600">
+            References
+        </h2>
+        <div class="max-w-4xl mx-auto text-sm text-gray-600 space-y-3 text-left px-4 sm:px-8 break-words">
+            <p>
+                <strong class="font-semibold text-gray-800">Bohnenstiehl, D. R., et al. (2016).</strong>
+                The curious acoustic behavior of snapping shrimp living on subtidal oyster reefs.
+                <em>The Journal of the Acoustical Society of America</em>, 140(4), 2941-2941.
+            </p>
+            <p>
+                <strong class="font-semibold text-gray-800">Chitre, M. A., Potter, J. R., & Koay, T. B. (2006).</strong>
+                Optimal and near-optimal signal detection in snapping shrimp dominated ambient noise.
+                <em>IEEE Journal of Oceanic Engineering</em>, 31(2), 497-503.
+            </p>
+            <p>
+                <strong class="font-semibold text-gray-800">Lewis, P. A. W., & Shedler, G. S. (1979).</strong>
+                Simulation of nonhomogeneous Poisson processes by thinning.
+                <em>Naval Research Logistics Quarterly</em>, 26(3), 403-413.
+            </p>
+            <p>
+                <strong class="font-semibold text-gray-800">Mahmood, A., Chitre, M., & Theng, L. B. (2018).</strong>
+                Modeling and simulation of snapping shrimp noise.
+                <em>IEEE Journal of Oceanic Engineering</em>, 43(3), 819-835.
+            </p>
+            <p>
+                <strong class="font-semibold text-gray-800">Versluis, M., et al. (2000).</strong>
+                How snapping shrimp snap: through cavitating bubbles.
+                <em>Science</em>, 289(5487), 2114-2117.
+            </p>
+        </div>
+    </section>
+
+    <footer class="text-center mt-12 py-6">
+        <p class="text-sm text-gray-500">
+            Infographic by <a href="https://github.com/jjwakefield" class="font-semibold text-blue-600 hover:underline">Joshua J. Wakefield</a>
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            function createSoundCloudPlayer(options) {
+                const { containerSelector, dataFile, audioSelector, playPauseBtnSelector, timeDisplaySelector } = options;
+                
+                const container = d3.select(containerSelector);
+                const audio = document.querySelector(audioSelector);
+                const playPauseBtn = document.querySelector(playPauseBtnSelector);
+                const timeDisplay = document.querySelector(timeDisplaySelector);
+
+                if (!container.node()) return;
+
+                const playIcon = playPauseBtn ? playPauseBtn.querySelector('#play-icon') : null;
+                const pauseIcon = playPauseBtn ? playPauseBtn.querySelector('#pause-icon') : null;
+
+                const margin = {top: 20, right: 30, bottom: 55, left: 70};
+                let x;
+
+                function formatTime(seconds) {
+                    if (isNaN(seconds)) return "0:00";
+                    const minutes = Math.floor(seconds / 60);
+                    const secs = Math.floor(seconds % 60);
+                    return `${minutes}:${secs.toString().padStart(2, '0')}`;
+                }
+
+                function render() {
+                    container.html(''); 
+                    const width = container.node().clientWidth - margin.left - margin.right;
+                    const height = 300 - margin.top - margin.bottom;
+
+                    const svgEl = container.append("svg")
+                        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+                        .attr("preserveAspectRatio", "xMinYMin meet");
+
+                    const svg = svgEl.append("g")
+                        .attr("transform", `translate(${margin.left},${margin.top})`);
+                    
+                    if (!dataFile) {
+                        svg.append("text").attr("x", width/2).attr("y", height/2).attr("text-anchor", "middle").attr("fill", "#9ca3af").text("Data unavailable.");
+                        if(playPauseBtn) {
+                           playPauseBtn.disabled = true;
+                           playPauseBtn.style.opacity = 0.5;
+                        }
+                        return;
+                    }
+                    
+                    d3.json(dataFile).then(function(data) {
+                        const xDomain = d3.extent(data, d => d.time);
+                        x = d3.scaleLinear().domain(xDomain).range([0, width]);
+                        const y = d3.scaleLinear().domain(d3.extent(data, d => d.amplitude)).nice().range([height, 0]);
+
+                        const xTickStart = Math.floor(xDomain[0] / 10) * 10;
+                        const xTickEnd = Math.ceil(xDomain[1] / 10) * 10;
+                        const xTicks = d3.range(xTickStart, xTickEnd + 1, 10);
+
+                        svg.append("g").attr("class", "axis")
+                            .attr("transform", `translate(0,${height})`)
+                            .call(d3.axisBottom(x).tickValues(xTicks));
+                        svg.append("g").attr("class", "axis")
+                            .call(d3.axisLeft(y).ticks(5).tickFormat(d3.format("~s")));
+
+                        svg.append("text").attr("transform", "rotate(-90)")
+                            .attr("y", 0 - margin.left + 15) // Adjusted padding
+                            .attr("x", 0 - (height / 2))
+                            .attr("dy", "1em").style("text-anchor", "middle")
+                            .style("font-size", "14px").style("fill", "#4b5563")
+                            .text("Amplitude (Pa)");
+                        svg.append("text")
+                            .attr("x", width / 2).attr("y", height + margin.bottom - 15)
+                            .style("text-anchor", "middle").style("font-size", "14px")
+                            .style("fill", "#4b5563").text("Time (s)");
+
+                        const lineGenerator = d3.line().x(d => x(d.time)).y(d => y(d.amplitude));
+
+                        svg.append("defs").append("clipPath").attr("id", `clip-${containerSelector.substring(1)}`)
+                           .append("rect").attr("width", 0).attr("height", height);
+
+                        svg.append("path").datum(data).attr("class", "line-base").attr("d", lineGenerator);
+                        
+                        svg.append("path").datum(data).attr("class", "line-progress").attr("d", lineGenerator)
+                           .attr("clip-path", `url(#clip-${containerSelector.substring(1)})`);
+
+                        const interactionLayer = svg.append("rect").attr("class", "interaction-layer")
+                            .attr("width", width).attr("height", height).style("fill", "transparent");
+                        
+                        let wasPlaying = false;
+                        const dragHandler = d3.drag()
+                            .on("start", function(event) {
+                                wasPlaying = !audio.paused;
+                                if(wasPlaying) audio.pause();
+                                event.sourceEvent.stopPropagation();
+                            })
+                            .on("drag", function(event) {
+                                if (!audio.duration || isNaN(audio.duration)) return;
+                                const xPos = Math.max(0, Math.min(width, event.x));
+                                const time = x.invert(xPos);
+                                audio.currentTime = time;
+                                const progress = audio.currentTime / audio.duration;
+                                d3.select(`#clip-${containerSelector.substring(1)} rect`).attr("width", progress * width);
+                                timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+                            })
+                            .on("end", function() {
+                                if(wasPlaying) audio.play();
+                            });
+                        
+                        interactionLayer.call(dragHandler);
+                        
+                        interactionLayer.on("click", function(event) {
+                            if (event.defaultPrevented) return;
+                            if (!audio.duration || isNaN(audio.duration)) return;
+                            const [xPos] = d3.pointer(event, this);
+                            const time = x.invert(xPos);
+                            audio.currentTime = time;
+                        });
+
+                        audio.addEventListener('loadedmetadata', () => {
+                            timeDisplay.textContent = `${formatTime(0)} / ${formatTime(audio.duration)}`;
+                        });
+
+                        audio.addEventListener('timeupdate', () => {
+                            if (!audio.duration || isNaN(audio.duration)) return;
+                            const progress = (audio.currentTime / audio.duration);
+                            d3.select(`#clip-${containerSelector.substring(1)} rect`).attr("width", progress * width);
+                            timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+                        });
+
+                        audio.addEventListener('ended', () => {
+                           playIcon.classList.remove('hidden');
+                           pauseIcon.classList.add('hidden');
+                           d3.select(`#clip-${containerSelector.substring(1)} rect`).attr("width", 0);
+                        });
+
+                    }).catch(error => console.error(`Error loading ${dataFile}:`, error));
+                }
+                
+                if (playPauseBtn && audio) {
+                    playPauseBtn.addEventListener('click', () => {
+                        if (audio.paused) {
+                            audio.play();
+                            playIcon.classList.add('hidden');
+                            pauseIcon.classList.remove('hidden');
+                        } else {
+                            audio.pause();
+                            playIcon.classList.remove('hidden');
+                            pauseIcon.classList.add('hidden');
+                        }
+                    });
+                }
+
+                render();
+                return render;
+            }
+
+            // --- Initialize Players ---
+            const renderShrimpPlayer = createSoundCloudPlayer({
+                containerSelector: '#timeseries-chart-shrimp',
+                dataFile: './data/shrimp_timeseries.json',
+                audioSelector: '#audio-player-shrimp',
+                playPauseBtnSelector: '#play-pause-btn-shrimp',
+                timeDisplaySelector: '#time-display-shrimp'
+            });
+
+            const renderWhalePlayer = createSoundCloudPlayer({
+                containerSelector: '#timeseries-chart-whale',
+                dataFile: null,
+            });
+
+            // --- Redraw on resize (debounced) ---
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (renderShrimpPlayer) renderShrimpPlayer();
+                    if (renderWhalePlayer) renderWhalePlayer();
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>

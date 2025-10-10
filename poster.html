@@ -109,6 +109,9 @@
     <header class="px-12 py-6 bg-[#242F61] text-white rounded-lg mb-4">
             <div class="flex items-center justify-center space-x-6">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">Simulating Realistic Ocean Soundscapes</h1>
+                <p class="text-lg md:text-xl text-blue-100 font-medium text-center mt-2">
+                    Towards higher-fidelity benchmarking of detection and tracking algorithms
+                </p>
                 <img src="./assets/cdt.svg" alt="CDT logo" class="h-32 w-auto">
             </div>
         </header>
@@ -143,13 +146,13 @@
                     <div class="flex items-start">
                         <div>
                             <p class="text-sm md:text-base font-semibold text-slate-800 mb-2">
-                                High-fidelity soundscape simulations that recreate real-world variability to benchmark detectors and trackers.
+                                We simulate complex underwater soundscapes that replicate real-world variability. These are used to benchmark detection and tracking algorithms and to support sensor deployment planning.
                             </p>
 
-                            <ul class="list-disc list-outside pl-4 text-slate-700 space-y-1 text-sm md:text-sm">
-                                <li>Recreate real-world variability.</li>
-                                <li>Produce realistic test datasets for detectors and trackers.</li>
-                                <li>Validate tracking and inform sensor deployment.</li>
+                            <ul class="list-disc list-outside pl-4 text-slate-700 mt-2 space-y-1 text-sm">
+                                <li>Generate noise from multiple ocean sources</li>
+                                <li>Inject signals for detection & tracking tests</li>
+                                <li>Quantify algorithm robustness and sensor performance</li>
                             </ul>
                         </div>
                     </div>
@@ -165,24 +168,79 @@
                         Biological, anthropogenic and geophysical sources dominate ocean noise.
                     </p>
                     <div class="mt-4 space-y-3">
+                        <h3 class="font-semibold text-slate-800 flex items-center">
+                        <img src="./assets/icon-bio.svg" class="h-5 w-5 mr-2"> Biological
+                        </h3>
+                        <p class="text-sm text-slate-600">Marine life sounds (e.g., shrimp, whales, dolphins).</p>
                         <div>
-                            <h3 class="font-semibold text-slate-800">1. Biological</h3>
-                            <p class="text-sm text-slate-600">Marine life, such as the cacophony of snapping shrimp or the songs of whales and dolphins.</p>
+                            <h3 class="font-semibold text-slate-800 flex items-center">
+                                <img src="./assets/icon-anthro.svg" class="h-5 w-5 mr-2"> Anthropogenic
+                            </h3>
+                            <p class="text-sm text-slate-600">Human activities (e.g., commercial shipping, sonar, construction).</p>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-slate-800">2. Anthropogenic</h3>
-                            <p class="text-sm text-slate-600">Human activities, dominated by commercial shipping, but also including sonar, and construction.</p>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-slate-800">3. Geophysical</h3>
-                            <p class="text-sm text-slate-600">Natural physical processes, including noise from wind-driven waves, rain, earthquakes, and other geological activity.</p>
+                            <h3 class="font-semibold text-slate-800 flex items-center">
+                                <img src="./assets/icon-geo.svg" class="h-5 w-5 mr-2"> Geophysical
+                            </h3>
+                            <p class="text-sm text-slate-600">Natural physical processes (e.g., wind-driven waves, rain, earthquakes).</p>
                         </div>
                     </div>
-                </section>
 
-                <div class="mt-4">
-                    <img src="./assets/smug_shrimp.png" alt="Smug shrimp" class="w-full rounded-md border object-contain">
-                </div>
+                    <!-- Frequency Band Table -->
+                    <!-- <div class="mt-3 text-[0.7rem] leading-tight">
+                    <p class="font-semibold text-slate-700 mb-1 text-center">
+                        Dominant Noise Sources by Frequency Band
+                    </p>
+                    <div class="space-y-1">
+                        <div class="bg-slate-100 p-1 rounded">
+                        <span class="font-semibold text-[#242F61]">&lt;10 Hz:</span>
+                        Wave interactions (microseisms), ship propellers
+                        <span class="italic text-slate-500">(minimal biological)</span>
+                        </div>
+                        <div class="bg-slate-50 p-1 rounded">
+                        <span class="font-semibold text-[#242F61]">10–500 Hz:</span>
+                        Surf & storms, shipping traffic, baleen whale songs
+                        </div>
+                        <div class="bg-slate-100 p-1 rounded">
+                        <span class="font-semibold text-[#242F61]">0.5–25 kHz:</span>
+                        Wind-driven waves, mid-freq sonars, snapping shrimp
+                        </div>
+                        <div class="bg-slate-50 p-1 rounded">
+                        <span class="font-semibold text-[#242F61]">&gt;25 kHz:</span>
+                        Thermal noise, high-freq sonars, toothed-whale clicks
+                        </div>
+                    </div>
+                    </div>
+                </section> -->
+4
+                <!-- Spectral Bar Graphic -->
+                <figure class="mt-3 flex justify-center">
+                <svg viewBox="0 0 40 120" class="h-48 w-auto rounded-md border border-slate-300">
+                    <!-- Bands (top = low freq) -->
+                    <rect x="0"  y="0"   width="40" height="25" fill="#94a3b8"/> <!-- Geophysical -->
+                    <rect x="0"  y="25"  width="40" height="35" fill="#60a5fa"/> <!-- Anthropogenic -->
+                    <rect x="0"  y="60"  width="40" height="35" fill="#34d399"/> <!-- Biological: Shrimp -->
+                    <rect x="0"  y="95"  width="40" height="25" fill="#10b981"/> <!-- Biological: Clicks -->
+
+                    <!-- Frequency Labels -->
+                    <text x="20" y="12"  font-size="6" fill="white" text-anchor="middle" font-weight="bold">&lt;10 Hz</text>
+                    <text x="20" y="38"  font-size="6" fill="white" text-anchor="middle" font-weight="bold">10–500 Hz</text>
+                    <text x="20" y="73"  font-size="6" fill="white" text-anchor="middle" font-weight="bold">0.5–25 kHz</text>
+                    <text x="20" y="108" font-size="6" fill="white" text-anchor="middle" font-weight="bold">&gt;25 kHz</text>
+
+                    <!-- Source Labels -->
+                    <text x="20" y="18"  font-size="5" fill="white" text-anchor="middle">Microseisms</text>
+                    <text x="20" y="44"  font-size="5" fill="white" text-anchor="middle">Shipping / Surf</text>
+                    <text x="20" y="79"  font-size="5" fill="white" text-anchor="middle">Snapping Shrimp</text>
+                    <text x="20" y="114" font-size="54" fill="white" text-anchor="middle">Echolocation</text>
+
+                    <!-- Axis Line -->4
+                    <line x1="0.5" y1="0" x2="0.5" y2="120" stroke="#475569" stroke-width="0.3"/>
+                </svg>
+                <figcaption class="text-[0.65rem] text-center text-slate-600 ml-2 self-center rotate-[-90deg] origin-center">
+                    Frequency → Increasing Downward
+                </figcaption>
+                </figure>
 
             </div>
 
@@ -222,7 +280,7 @@
                         <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
                             <h4 class="font-bold text-lg text-blue-600">1. Snap Timing (When?)</h4>
                             <p class="text-sm text-slate-600 mt-1">
-                                A <strong>Non-Homogeneous Poisson Process (NHPP)</strong> models snap times and burstiness. The snap rate is modulated by water temperature, and rhythmic daily and tidal cycles.
+                                A <strong>Non-Homogeneous Poisson Process (NHPP)</strong> with intensity function λ(t) models snap timing, modulated by temperature and diurnal/tidal cycles.
                             </p>
                             <figure class="w-3/4 mx-auto mt-2">
                                 <img src="./assets/snap_rate.svg" alt="Snap rate variation over 48 hours" class="w-full">
@@ -280,16 +338,16 @@
                     </div>
                 </section>
 
-                <!-- Key Takeaways -->
+                <!-- Key Points -->
                 <section class="bg-[#242F61] text-white p-6 rounded-lg">
                     <h2 class="text-2xl font-bold border-b-2 border-[#A0A8C9] pb-2 mb-4 flex items-center whitespace-nowrap">
                         <img src="./assets/icon-conclusion.svg" alt="Takeaways" class="h-6 w-6 mr-3">
                         Key Points
                     </h2>
                     <ul class="list-disc list-outside pl-4 space-y-1 text-xs md:text-sm">
-                        <li><strong>Realism:</strong> Models reproduce empirical statistics, specific to each source type.</li>
-                        <li><strong>Benchmarking:</strong> Generate labelled datasets to measure detection and tracking metrics.</li>
-                        <li><strong>Impact:</strong> Stress-test algorithms; guide sensor placement and processing.</li>
+                        <li><strong>Realism:</strong> Models reproduce empirical statistics across noise types.</li>
+                        <li><strong>Benchmarking:</strong> Generates labelled acoustic datasets for algorithm validation.</li>
+                        <li><strong>Impact:</strong> Informs robust tracker design and optimal sensor placement.</li>
                     </ul>
                 </section>
                 

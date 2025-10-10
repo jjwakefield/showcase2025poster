@@ -106,13 +106,15 @@
     <div class="poster-container bg-white rounded-lg p-6 sm:p-10 flex flex-col">
         
         <!-- Header Section -->
-    <header class="px-12 py-6 bg-[#242F61] text-white rounded-lg mb-4">
-            <div class="flex items-center justify-center space-x-6">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">Simulating Realistic Ocean Soundscapes</h1>
-                <p class="text-lg md:text-xl text-blue-100 font-medium text-center mt-2">
-                    Towards higher-fidelity benchmarking of detection and tracking algorithms
-                </p>
-                <img src="./assets/cdt.svg" alt="CDT logo" class="h-32 w-auto">
+        <header class="px-12 py-6 bg-[#242F61] text-white rounded-lg mb-4">
+            <div class="flex items-center justify-between space-x-8">
+                <div class="text-left">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">Virtual Oceans: Simulating Complex Soundscapes</h1>
+                    <p class="text-lg md:text-xl text-blue-100 font-medium mt-4">
+                        Generating Realistic Acoustic Data for Robust Sonar Benchmarking and Validation
+                    </p>
+                </div>
+                <img src="./assets/cdt.svg" alt="CDT logo" class="h-32 w-auto flex-shrink-0">
             </div>
         </header>
 
@@ -145,11 +147,11 @@
                     <!-- Lead + visual accent -->
                     <div class="flex items-start">
                         <div>
-                            <p class="text-sm md:text-base font-semibold text-slate-800 mb-2">
+                            <p class="text-sm md:text-base font-semibold text-slate-800 mb-2 leading-relaxed">
                                 We simulate complex underwater soundscapes that replicate real-world variability. These are used to benchmark detection and tracking algorithms and to support sensor deployment planning.
                             </p>
 
-                            <ul class="list-disc list-outside pl-4 text-slate-700 mt-2 space-y-1 text-sm">
+                            <ul class="list-disc list-outside pl-4 text-slate-700 mt-4 space-y-1 text-sm">
                                 <li>Generate noise from multiple ocean sources</li>
                                 <li>Inject signals for detection & tracking tests</li>
                                 <li>Quantify algorithm robustness and sensor performance</li>
@@ -165,9 +167,9 @@
                         Noise Sources
                     </h2>
                     <p class="text-slate-700 leading-relaxed">
-                        Biological, anthropogenic and geophysical sources dominate ocean noise.
+                        The ocean soundscape is a composite of sources, each dominating different parts of the frequency spectrum.
                     </p>
-                    <div class="mt-4 space-y-3">
+                    <div class="mt-6 space-y-3">
                         <h3 class="font-semibold text-slate-800 flex items-center">
                         <img src="./assets/icon-bio.svg" class="h-5 w-5 mr-2"> Biological
                         </h3>
@@ -186,61 +188,26 @@
                         </div>
                     </div>
 
-                    <!-- Frequency Band Table -->
-                    <!-- <div class="mt-3 text-[0.7rem] leading-tight">
-                    <p class="font-semibold text-slate-700 mb-1 text-center">
-                        Dominant Noise Sources by Frequency Band
-                    </p>
-                    <div class="space-y-1">
-                        <div class="bg-slate-100 p-1 rounded">
-                        <span class="font-semibold text-[#242F61]">&lt;10 Hz:</span>
-                        Wave interactions (microseisms), ship propellers
-                        <span class="italic text-slate-500">(minimal biological)</span>
+                    <!-- Infographic Spectrum List -->
+                    <div class="mt-6 space-y-4 text-sm">
+                        <h3 class="font-medium text-slate-600 text-center mb-2 text-sm">Dominant Sources by Frequency</h3>
+                        <div class="border-l-4 border-slate-400 pl-3">
+                            <h4 class="font-bold text-slate-700">&lt;10 Hz</h4>
+                            <p class="text-slate-600 text-xs">Wave interactions, ship propellers</p>
                         </div>
-                        <div class="bg-slate-50 p-1 rounded">
-                        <span class="font-semibold text-[#242F61]">10–500 Hz:</span>
-                        Surf & storms, shipping traffic, baleen whale songs
+                        <div class="border-l-4 border-blue-500 pl-3">
+                            <h4 class="font-bold text-blue-700">10-500 Hz</h4>
+                            <p class="text-slate-600 text-xs">Surf & storms, commercial shipping, baleen whales</p>
                         </div>
-                        <div class="bg-slate-100 p-1 rounded">
-                        <span class="font-semibold text-[#242F61]">0.5–25 kHz:</span>
-                        Wind-driven waves, mid-freq sonars, snapping shrimp
+                        <div class="border-l-4 border-teal-500 pl-3">
+                            <h4 class="font-bold text-teal-700">0.5-25 kHz</h4>
+                            <p class="text-slate-600 text-xs">Breaking waves, mid-freq. sonar, snapping shrimp</p>
                         </div>
-                        <div class="bg-slate-50 p-1 rounded">
-                        <span class="font-semibold text-[#242F61]">&gt;25 kHz:</span>
-                        Thermal noise, high-freq sonars, toothed-whale clicks
+                        <div class="border-l-4 border-emerald-600 pl-3">
+                            <h4 class="font-bold text-emerald-700">&gt;25 kHz</h4>
+                            <p class="text-slate-600 text-xs">Thermal noise, high-freq. sonar, dolphin echolocation</p>
                         </div>
                     </div>
-                    </div>
-                </section> -->
-4
-                <!-- Spectral Bar Graphic -->
-                <figure class="mt-3 flex justify-center">
-                <svg viewBox="0 0 40 120" class="h-48 w-auto rounded-md border border-slate-300">
-                    <!-- Bands (top = low freq) -->
-                    <rect x="0"  y="0"   width="40" height="25" fill="#94a3b8"/> <!-- Geophysical -->
-                    <rect x="0"  y="25"  width="40" height="35" fill="#60a5fa"/> <!-- Anthropogenic -->
-                    <rect x="0"  y="60"  width="40" height="35" fill="#34d399"/> <!-- Biological: Shrimp -->
-                    <rect x="0"  y="95"  width="40" height="25" fill="#10b981"/> <!-- Biological: Clicks -->
-
-                    <!-- Frequency Labels -->
-                    <text x="20" y="12"  font-size="6" fill="white" text-anchor="middle" font-weight="bold">&lt;10 Hz</text>
-                    <text x="20" y="38"  font-size="6" fill="white" text-anchor="middle" font-weight="bold">10–500 Hz</text>
-                    <text x="20" y="73"  font-size="6" fill="white" text-anchor="middle" font-weight="bold">0.5–25 kHz</text>
-                    <text x="20" y="108" font-size="6" fill="white" text-anchor="middle" font-weight="bold">&gt;25 kHz</text>
-
-                    <!-- Source Labels -->
-                    <text x="20" y="18"  font-size="5" fill="white" text-anchor="middle">Microseisms</text>
-                    <text x="20" y="44"  font-size="5" fill="white" text-anchor="middle">Shipping / Surf</text>
-                    <text x="20" y="79"  font-size="5" fill="white" text-anchor="middle">Snapping Shrimp</text>
-                    <text x="20" y="114" font-size="54" fill="white" text-anchor="middle">Echolocation</text>
-
-                    <!-- Axis Line -->4
-                    <line x1="0.5" y1="0" x2="0.5" y2="120" stroke="#475569" stroke-width="0.3"/>
-                </svg>
-                <figcaption class="text-[0.65rem] text-center text-slate-600 ml-2 self-center rotate-[-90deg] origin-center">
-                    Frequency → Increasing Downward
-                </figcaption>
-                </figure>
 
             </div>
 
@@ -252,21 +219,21 @@
                         Case Study: Snapping Shrimp
                     </h2>
                     <div class="text-center grid grid-cols-3 gap-4 mb-6">
-                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                                     <h3 class="font-bold text-blue-700 flex items-center justify-center">
-                                         <img src="./assets/icon-bursty.svg" alt="Bursty" class="h-5 w-5 mr-2">
-                                          Bursty
-                                     </h3>
+                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-200 flex flex-col justify-center">
+                            <h3 class="font-bold text-blue-700 flex items-center justify-center">
+                                <img src="./assets/icon-bursty.svg" alt="Bursty" class="h-5 w-5 mr-2">
+                                Bursty
+                            </h3>
                             <p class="text-xs text-blue-600">Snaps occur in non-independent clusters.</p>
                         </div>
-                        <div class="bg-teal-50 p-3 rounded-lg border border-teal-200">
+                        <div class="bg-teal-50 p-3 rounded-lg border border-teal-200 flex flex-col justify-center">
                             <h3 class="font-bold text-teal-700 flex items-center justify-center">
-                                                                <img src="./assets/icon-heavy-tailed.svg" alt="Heavy-Tailed" class="h-5 w-5 mr-2">
-                                                                Heavy-Tailed
+                                <img src="./assets/icon-heavy-tailed.svg" alt="Heavy-Tailed" class="h-5 w-5 mr-2">
+                                Heavy-Tailed
                             </h3>
                             <p class="text-xs text-teal-600">Extreme events are more likely than in a Gaussian model.</p>
                         </div>
-                        <div class="bg-red-50 p-3 rounded-lg border border-red-200">
+                        <div class="bg-red-50 p-3 rounded-lg border border-red-200 flex flex-col justify-center">
                              <h3 class="font-bold text-red-700 flex items-center justify-center">
                                 <img src="./assets/icon-impulsive.svg" alt="Impulsive" class="h-5 w-5 mr-2">
                                 Impulsive
@@ -282,9 +249,9 @@
                             <p class="text-sm text-slate-600 mt-1">
                                 A <strong>Non-Homogeneous Poisson Process (NHPP)</strong> with intensity function λ(t) models snap timing, modulated by temperature and diurnal/tidal cycles.
                             </p>
-                            <figure class="w-3/4 mx-auto mt-2">
-                                <img src="./assets/snap_rate.svg" alt="Snap rate variation over 48 hours" class="w-full">
-                                <figcaption class="text-center text-xs text-slate-600 mt-1">Figure 1. Snap rate variation over 48 hours.</figcaption>
+                            <figure class="w-5/6 mx-auto mt-2">
+                                <img src="./assets/snap_rate.svg" alt="Snap rate variation over 48 hours" class="w-11/12 mx-auto">
+                                <figcaption class="text-center text-xs text-slate-600 mt-1">Figure 1. The diurnal cycle shows that snap rates are highest at night.</figcaption>
                             </figure>
                         </div>
 
@@ -292,8 +259,8 @@
                          <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
                             <h4 class="font-bold text-lg text-teal-600">2. Snap Waveform (What?)</h4>
                             <p class="text-sm text-slate-600 mt-1">Each ~2ms snap is built using a <strong>Composite Waveform</strong>, representing the acoustic signature of a collapsing cavitation bubble. This captures the sharp, broadband nature of the sound.</p>
-                            <figure class="w-3/4 mx-auto mt-2">
-                                <img src="./assets/snap_waveform.svg" alt="Modelled snap waveform" class="w-full">
+                            <figure class="w-5/6 mx-auto mt-2">
+                                <img src="./assets/snap_waveform.svg" alt="Modelled snap waveform" class="w-11/12 mx-auto">
                                 <figcaption class="text-center text-xs text-slate-600 mt-1">Figure 2. Modelled snap waveform (~2 ms).</figcaption>
                             </figure>
                         </div>
@@ -302,9 +269,9 @@
                          <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
                             <h4 class="font-bold text-lg text-red-600">3. Snap Amplitude (How Loud?)</h4>
                             <p class="text-sm text-slate-600 mt-1">Loudness is modelled with a heavy-tailed <strong>Symmetric Alpha-Stable (SαS)</strong> distribution. This correctly predicts the probability of the extremely loud snaps that characterise this type of noise.</p>
-                            <figure class="w-3/4 mx-auto mt-2">
-                                <img src="./assets/snap_amplitude.svg" alt="Amplitude distribution comparison" class="w-full">
-                                <figcaption class="text-center text-xs text-slate-600 mt-1">Figure 3. Amplitude distribution: SαS vs Gaussian.</figcaption>
+                            <figure class="w-5/6 mx-auto mt-2">
+                                <img src="./assets/snap_amplitude.svg" alt="Amplitude distribution comparison" class="w-11/12 mx-auto">
+                                <figcaption class="text-center text-xs text-slate-600 mt-1">Figure 3. The SαS distribution correctly models the heavy tail of real data, unlike a traditional Gaussian model.</figcaption>
                             </figure>
                         </div>
                     </div>
@@ -320,7 +287,7 @@
                         Detection & Tracking
                     </h2>
                     <p class="text-slate-700 leading-relaxed">
-                        Use simulations to measure detector and tracker performance across realistic, variable noise conditions.
+                        The simulated soundscape enables realistic testing of tracker performance under dynamic acoustic conditions.
                     </p>
                     <div class="mt-4 space-y-3">
                         <div>
@@ -375,7 +342,7 @@
 
         <!-- Footer with Logos -->
         <footer class="mt-3 border-t-2 border-slate-200 py-4 flex items-center justify-center">
-            <div class="flex items-center justify-center space-x-24">
+            <div class="flex items-center justify-center space-x-32">
                 <!-- Logo 1 -->
                 <div class="h-24 w-64 flex justify-center items-center">
                     <img src="./assets/uni.svg" alt="University Logo" class="max-h-full max-w-full object-contain">
